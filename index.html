@@ -1,19 +1,13 @@
 <!DOCTYPE html>
-
 <html class="light" lang="en">
 
 <head>
     <meta charset="utf-8" />
-    <meta content="width=1024" name="viewport" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Shaurya Bhatnagar's Portfolio</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&amp;family=Space+Grotesk:wght@600&amp;display=swap"
-        rel="stylesheet" />
-    <!-- duplicate font link removed -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&amp;family=Space+Grotesk:wght@600&amp;display=swap" rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -114,11 +108,18 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
 
-        /* Custom styles to match the highly specific layout request */
+        /* Prevent text from being editable and disable browser-specific entry modes */
         body {
             background-color: #ffffff;
             overflow: hidden;
-            /* No scrolling */
+            -webkit-user-modify: read-only !important;
+            -moz-user-modify: read-only !important;
+            user-modify: read-only !important;
+        }
+
+        /* Ensure interactive elements feel static unless they are links */
+        [contenteditable="true"] {
+            contenteditable: false !important;
         }
 
         .hero-image-radius {
@@ -129,6 +130,7 @@
             pointer-events: none;
             opacity: 0.3;
             z-index: 10;
+            user-select: none;
         }
 
         .carousel-container {
@@ -137,13 +139,8 @@
         }
 
         @keyframes shimmer {
-            0% {
-                background-position: -200% center;
-            }
-
-            100% {
-                background-position: 200% center;
-            }
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
         }
 
         .name-shimmer {
@@ -153,222 +150,123 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: shimmer 3s linear infinite;
+            user-select: none;
+        }
+
+        /* Allow selection for specific contact details only */
+        .selectable-text {
+            user-select: text;
         }
     </style>
 </head>
 
 <body class="bg-white min-h-screen flex flex-col relative font-sans text-primary">
     <!-- TopNavBar -->
-    <nav
-        class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-[8vw] h-20 bg-white/90 backdrop-blur-sm border-b-2 border-zinc-900 dark:border-zinc-50">
+    <nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-[8vw] h-20 bg-white/90 backdrop-blur-sm border-b-2 border-zinc-900 dark:border-zinc-50">
         <!-- Navigation Links -->
         <div class="flex gap-8 font-sans uppercase tracking-tighter text-sm font-bold items-center">
-            <a class="text-zinc-900 dark:text-zinc-50 border-b-2 border-zinc-900 dark:border-zinc-50 pb-1" href="#hero"
-                style="">Home</a>
-            <a class="text-zinc-400 dark:text-zinc-600 hover:text-zinc-900 dark:hover:text-zinc-50 pb-1 hover:invert transition-none"
-                href="Resume.pdf" target="_blank" style="">Resume</a>
-            <a class="text-zinc-400 dark:text-zinc-600 hover:text-zinc-900 dark:hover:text-zinc-50 pb-1 hover:invert transition-none"
-                href="Portfolio.pdf" target="_blank" style="">Portfolio</a>
-            <a class="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50 transition-colors"
-                href="https://www.linkedin.com/in/bhatnagarshaurya/" target="_blank" rel="noopener noreferrer"
-                title="LinkedIn">
+            <a class="text-zinc-900 dark:text-zinc-50 border-b-2 border-zinc-900 dark:border-zinc-50 pb-1" href="#hero">Home</a>
+            <a class="text-zinc-400 dark:text-zinc-600 hover:text-zinc-900 dark:hover:text-zinc-50 pb-1 hover:invert transition-none" href="Resume.pdf" target="_blank">Resume</a>
+            <a class="text-zinc-400 dark:text-zinc-600 hover:text-zinc-900 dark:hover:text-zinc-50 pb-1 hover:invert transition-none" href="Portfolio.pdf" target="_blank">Portfolio</a>
+            <a class="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50 transition-colors" href="https://www.linkedin.com/in/bhatnagarshaurya/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
                 <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                 </svg>
             </a>
-            <a class="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50 transition-colors"
-                href="https://github.com/ShauryaB18650" target="_blank" rel="noopener noreferrer" title="GitHub">
+            <a class="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50 transition-colors" href="https://github.com/ShauryaB18650" target="_blank" rel="noopener noreferrer" title="GitHub">
                 <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                 </svg>
             </a>
         </div>
         <!-- Right Side Contact Info -->
         <div class="flex flex-col items-end gap-[2px]">
-            <div
-                class="flex items-center gap-4 font-sans text-sm font-bold tracking-tighter text-zinc-900 dark:text-zinc-50">
-                <a href="tel:9354506459" class="hover:text-primary transition-colors">9354506459</a>
-                <a href="mailto:bhatnagar.shaurya.edu@gmail.com"
-                    class="hover:text-primary transition-colors">bhatnagar.shaurya.edu@gmail.com ⚡</a>
+            <div class="flex items-center gap-4 font-sans text-sm font-bold tracking-tighter text-zinc-900 dark:text-zinc-50">
+                <a href="tel:9354506459" class="hover:text-primary transition-colors selectable-text">9354506459</a>
+                <a href="mailto:bhatnagar.shaurya.edu@gmail.com" class="hover:text-primary transition-colors selectable-text">bhatnagar.shaurya.edu@gmail.com ⚡</a>
             </div>
-            <div
-                class="font-sans text-xs font-semibold tracking-tight text-zinc-500 hover:text-primary transition-colors cursor-pointer">
-                <a href="mailto:csjma24001390511@csjmu.ac.in">csjma24001390511@csjmu.ac.in</a>
+            <div class="font-sans text-xs font-semibold tracking-tight text-zinc-500 hover:text-primary transition-colors cursor-pointer">
+                <a href="mailto:csjma24001390511@csjmu.ac.in" class="selectable-text">csjma24001390511@csjmu.ac.in</a>
             </div>
         </div>
     </nav>
-    <!-- Main Content Area - Fixed Layout -->
+    <!-- Main Content Area -->
     <main id="hero" class="flex-grow pt-20 px-[8vw] flex items-center justify-center relative w-full h-screen">
-        <!-- Grid Layout -->
         <div class="grid grid-cols-12 gap-gutter w-full max-w-7xl relative z-20">
             <!-- Left Column: Image -->
             <div class="col-span-5 flex justify-center items-center">
-                <div
-                    class="w-full max-w-md aspect-[3/4] relative hero-image-radius overflow-hidden border border-primary">
-                    <img alt="Portrait of Shaurya Bhatnagar" class="w-full h-full object-cover"
-                        data-alt="Black and white portrait of a young man, professional but relaxed, studio lighting, highly detailed"
-                        src="images/portrait.jpg" style="" />
+                <div class="w-full max-w-md aspect-[3/4] relative hero-image-radius overflow-hidden border border-primary">
+                    <img alt="Portrait of Shaurya Bhatnagar" class="w-full h-full object-cover" src="images/portrait.jpg" />
                 </div>
             </div>
             <!-- Right Column: Content -->
             <div class="col-span-7 flex flex-col justify-center px-12 relative w-full">
                 <!-- Floating Decorative SVGs -->
-                <svg class="absolute top-0 right-0 w-32 h-32 floating-svg text-secondary" fill="none"
-                    stroke="currentColor" stroke-width="1.5" viewbox="0 0 100 100">
+                <svg class="absolute top-0 right-0 w-32 h-32 floating-svg text-secondary" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 100 100">
                     <path d="M10,90 Q50,10 90,90 M20,90 L80,90 M50,10 L50,90"></path>
                     <circle cx="50" cy="50" r="10"></circle>
                 </svg>
-                <svg class="absolute bottom-10 left-0 w-40 h-40 floating-svg text-secondary" fill="none"
-                    stroke="currentColor" stroke-width="1" viewbox="0 0 100 100">
+                <svg class="absolute bottom-10 left-0 w-40 h-40 floating-svg text-secondary" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 100 100">
                     <rect height="60" width="60" x="20" y="20"></rect>
                     <line x1="20" x2="80" y1="20" y2="80"></line>
                     <line x1="80" x2="20" y1="20" y2="80"></line>
                     <circle cx="50" cy="50" r="25"></circle>
                 </svg>
                 <div class="text-center w-full">
-                    <h1 class="flex flex-col items-center justify-center gap-3 text-primary mb-6"
-                        style="line-height:1;">
+                    <h1 class="flex flex-col items-center justify-center gap-3 text-primary mb-6" style="line-height:1;">
                         <span class="text-3xl" style="font-weight:400;">I'm</span>
-                        <span class="name-shimmer font-headline-lg text-headline-lg"
-                            style="font-weight:800; line-height:1.15;">Shaurya Bhatnagar</span>
+                        <span class="name-shimmer font-headline-lg text-headline-lg" style="font-weight:800; line-height:1.15;">Shaurya Bhatnagar</span>
                         <span class="text-3xl" style="font-weight:400;">a Mechanical Engineer</span>
                     </h1>
-                    <p contenteditable="true"
-                        class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mx-auto mb-4 hover:bg-zinc-50 rounded-md p-2 transition-all outline-none focus:bg-zinc-100"
-                        style="">
-                        I am currently pursuing a bachelors in Mechanical Engineering
-                        Engineering. I am passionate about development and implementaion of aerial vehicles.
+                    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mx-auto mb-4">
+                        I am currently pursuing a bachelors in Mechanical Engineering. I am passionate about development and implementation of aerial vehicles.
                     </p>
-                    <p contenteditable="true"
-                        class="font-body-md text-body-md text-on-surface-variant max-w-xl mx-auto mb-10 hover:bg-zinc-50 rounded-md p-2 transition-all outline-none focus:bg-zinc-100"
-                        style="">
-                        <span class="font-bold">Research Interests:</span> High Mach Fluid Flow, Hypersonic Propulsion,
-                        Defence Centric Development and Aerodynamics.
+                    <p class="font-body-md text-body-md text-on-surface-variant max-w-xl mx-auto mb-10">
+                        <span class="font-bold">Research Interests:</span> High Mach Fluid Flow, Hypersonic Propulsion, Defence Centric Development and Aerodynamics.
                     </p>
-                    <p class="font-body-md text-body-md text-on-surface-variant max-w-xl mx-auto mb-10" style="">The
-                        Carousel Below Shows the Projects and Reseach I've Indulged in.</p>
+                    <p class="font-body-md text-body-md text-on-surface-variant max-w-xl mx-auto mb-10">The Carousel Below Shows a few  and Reseach I've Indulged in.</p>
                 </div>
                 <!-- Autoscrolling Carousel -->
                 <div id="projects" class="w-full overflow-hidden carousel-container relative mt-4">
                     <div class="flex animate-scroll gap-6 w-max py-2">
                         <!-- Card 1 -->
                         <div class="flex border-2 border-primary p-3 rounded-xl w-[380px] bg-white relative">
-                            <div
-                                class="w-1/3 aspect-square border-2 border-primary relative overflow-hidden bg-zinc-100 flex-shrink-0">
-                                <img alt="CAD model of missile design with fins" class="w-full h-full object-cover"
-                                    src="images/card-missile-design.png" />
-                                <svg class="absolute inset-0 w-full h-full opacity-20" fill="none" stroke="currentColor"
-                                    viewbox="0 0 100 100">
-                                    <line x1="0" x2="100" y1="0" y2="100"></line>
-                                    <line x1="100" x2="0" y1="0" y2="100"></line>
-                                </svg>
+                            <div class="w-1/3 aspect-square border-2 border-primary relative overflow-hidden bg-zinc-100 flex-shrink-0">
+                                <img alt="CAD model of missile design" class="w-full h-full object-cover" src="images/card-missile-design.png" />
                             </div>
                             <div class="w-2/3 pl-4 flex flex-col justify-center text-left">
-                                <h3
-                                    class="font-label-caps text-label-caps font-bold text-primary mb-2 uppercase tracking-widest">
-                                    Missile Design</h3>
-                                <p class="font-body-md text-sm text-on-surface-variant leading-tight">3D CAD modelling
-                                    of a guided missile airframe with stabilising fin geometry.</p>
+                                <h3 class="font-label-caps text-label-caps font-bold text-primary mb-2 uppercase tracking-widest">Missile Design</h3>
+                                <p class="font-body-md text-sm text-on-surface-variant leading-tight">3D CAD modelling of a guided missile airframe with stabilising fin geometry.</p>
                             </div>
                         </div>
                         <!-- Card 2 -->
                         <div class="flex border-2 border-primary p-3 rounded-xl w-[380px] bg-white relative">
-                            <div
-                                class="w-1/3 aspect-square border-2 border-primary relative overflow-hidden bg-zinc-100 flex-shrink-0">
-                                <img alt="CFD velocity contour plot of rocket nozzle cross-section"
-                                    class="w-full h-full object-cover" src="images/card-nozzle-cfd.jpg" />
-                                <svg class="absolute inset-0 w-full h-full opacity-20" fill="none" stroke="currentColor"
-                                    viewbox="0 0 100 100">
-                                    <circle cx="50" cy="50" r="40"></circle>
-                                    <circle cx="50" cy="50" r="20"></circle>
-                                </svg>
+                            <div class="w-1/3 aspect-square border-2 border-primary relative overflow-hidden bg-zinc-100 flex-shrink-0">
+                                <img alt="CFD velocity contour plot" class="w-full h-full object-cover" src="images/card-nozzle-cfd.jpg" />
                             </div>
                             <div class="w-2/3 pl-4 flex flex-col justify-center text-left">
-                                <h3
-                                    class="font-label-caps text-label-caps font-bold text-primary mb-2 uppercase tracking-widest">
-                                    Nozzle CFD</h3>
-                                <p class="font-body-md text-sm text-on-surface-variant leading-tight">Flow simulation of
-                                    a converging-diverging rocket nozzle; velocity contours up to 620 m/s.</p>
+                                <h3 class="font-label-caps text-label-caps font-bold text-primary mb-2 uppercase tracking-widest">Nozzle CFD</h3>
+                                <p class="font-body-md text-sm text-on-surface-variant leading-tight">Flow simulation of a converging-diverging rocket nozzle; velocity contours up to 620 m/s.</p>
                             </div>
                         </div>
                         <!-- Card 3 -->
                         <div class="flex border-2 border-primary p-3 rounded-xl w-[380px] bg-white relative">
-                            <div
-                                class="w-1/3 aspect-square border-2 border-primary relative overflow-hidden bg-zinc-100 flex-shrink-0">
-                                <img alt="4.5 DOF robotic system animation" class="w-full h-full object-cover"
-                                    src="images/card-4p5-dof.gif" />
-                                <svg class="absolute inset-0 w-full h-full opacity-20" fill="none" stroke="currentColor"
-                                    viewbox="0 0 100 100">
-                                    <rect height="80" width="80" x="10" y="10"></rect>
-                                    <path d="M10 50h80M50 10v80"></path>
-                                </svg>
+                            <div class="w-1/3 aspect-square border-2 border-primary relative overflow-hidden bg-zinc-100 flex-shrink-0">
+                                <img alt="4.5 DOF robotic system" class="w-full h-full object-cover" src="images/card-4p5-dof.gif" />
                             </div>
                             <div class="w-2/3 pl-4 flex flex-col justify-center text-left">
-                                <h3
-                                    class="font-label-caps text-label-caps font-bold text-primary mb-2 uppercase tracking-widest">
-                                    4.5 DOF System</h3>
-                                <p class="font-body-md text-sm text-on-surface-variant leading-tight">Design and
-                                    simulation of a 4.5 degree-of-freedom mechanical system.</p>
+                                <h3 class="font-label-caps text-label-caps font-bold text-primary mb-2 uppercase tracking-widest">4.5 DOF System</h3>
+                                <p class="font-body-md text-sm text-on-surface-variant leading-tight">Design and simulation of a 4.5 degree-of-freedom mechanical system.</p>
                             </div>
                         </div>
-                        <!-- Duplicated Cards for infinite scrolling effect -->
+                        <!-- Duplicated for infinite scroll -->
                         <div class="flex border-2 border-primary p-3 rounded-xl w-[380px] bg-white relative">
-                            <div
-                                class="w-1/3 aspect-square border-2 border-primary relative overflow-hidden bg-zinc-100 flex-shrink-0">
-                                <img alt="CAD model of missile design with fins" class="w-full h-full object-cover"
-                                    src="images/card-missile-design.png" />
-                                <svg class="absolute inset-0 w-full h-full opacity-20" fill="none" stroke="currentColor"
-                                    viewbox="0 0 100 100">
-                                    <line x1="0" x2="100" y1="0" y2="100"></line>
-                                    <line x1="100" x2="0" y1="0" y2="100"></line>
-                                </svg>
+                            <div class="w-1/3 aspect-square border-2 border-primary relative overflow-hidden bg-zinc-100 flex-shrink-0">
+                                <img alt="CAD model of missile design" class="w-full h-full object-cover" src="images/card-missile-design.png" />
                             </div>
                             <div class="w-2/3 pl-4 flex flex-col justify-center text-left">
-                                <h3
-                                    class="font-label-caps text-label-caps font-bold text-primary mb-2 uppercase tracking-widest">
-                                    Missile Design</h3>
-                                <p class="font-body-md text-sm text-on-surface-variant leading-tight">3D CAD modelling
-                                    of a guided missile airframe with stabilising fin geometry.</p>
-                            </div>
-                        </div>
-                        <div class="flex border-2 border-primary p-3 rounded-xl w-[380px] bg-white relative">
-                            <div
-                                class="w-1/3 aspect-square border-2 border-primary relative overflow-hidden bg-zinc-100 flex-shrink-0">
-                                <img alt="CFD velocity contour plot of rocket nozzle cross-section"
-                                    class="w-full h-full object-cover" src="images/card-nozzle-cfd.jpg" />
-                                <svg class="absolute inset-0 w-full h-full opacity-20" fill="none" stroke="currentColor"
-                                    viewbox="0 0 100 100">
-                                    <circle cx="50" cy="50" r="40"></circle>
-                                    <circle cx="50" cy="50" r="20"></circle>
-                                </svg>
-                            </div>
-                            <div class="w-2/3 pl-4 flex flex-col justify-center text-left">
-                                <h3
-                                    class="font-label-caps text-label-caps font-bold text-primary mb-2 uppercase tracking-widest">
-                                    Nozzle CFD</h3>
-                                <p class="font-body-md text-sm text-on-surface-variant leading-tight">Flow simulation of
-                                    a converging-diverging rocket nozzle; velocity contours up to 620 m/s.</p>
-                            </div>
-                        </div>
-                        <div class="flex border-2 border-primary p-3 rounded-xl w-[380px] bg-white relative">
-                            <div
-                                class="w-1/3 aspect-square border-2 border-primary relative overflow-hidden bg-zinc-100 flex-shrink-0">
-                                <img alt="4.5 DOF robotic system animation" class="w-full h-full object-cover"
-                                    src="images/card-4p5-dof.gif" />
-                                <svg class="absolute inset-0 w-full h-full opacity-20" fill="none" stroke="currentColor"
-                                    viewbox="0 0 100 100">
-                                    <rect height="80" width="80" x="10" y="10"></rect>
-                                    <path d="M10 50h80M50 10v80"></path>
-                                </svg>
-                            </div>
-                            <div class="w-2/3 pl-4 flex flex-col justify-center text-left">
-                                <h3
-                                    class="font-label-caps text-label-caps font-bold text-primary mb-2 uppercase tracking-widest">
-                                    4.5 DOF System</h3>
-                                <p class="font-body-md text-sm text-on-surface-variant leading-tight">Design and
-                                    simulation of a 4.5 degree-of-freedom mechanical system.</p>
+                                <h3 class="font-label-caps text-label-caps font-bold text-primary mb-2 uppercase tracking-widest">Missile Design</h3>
+                                <p class="font-body-md text-sm text-on-surface-variant leading-tight">3D CAD modelling of a guided missile airframe with stabilising fin geometry.</p>
                             </div>
                         </div>
                     </div>
@@ -400,7 +298,5 @@
             });
         }
     </script>
-
 </body>
-
 </html>
